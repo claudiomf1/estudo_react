@@ -1,6 +1,6 @@
-import { ThemeProvider } from 'styled-components'
+
 import  React  from 'react'
-import Routes  from './route'
+import Routes  from './route.js'
 
 function App() {
  return (
