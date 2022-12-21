@@ -1,0 +1,35 @@
+{
+  "name": "estudo_react",
+  "version": "1.0.0",
+  "description": "",
+
+  "scripts": {
+    "glogin": "clasp login",
+    "gclone": "clasp clone 1RrUzpEJirzP4aynxyU4rgAcrYJE30wyPmbBbvPZUTVyRQMDGxVWaB6s5  --rootDir apps",
+    "glogout": "clasp logout",
+    "gpull": "clasp pull",
+    "gpush": "clasp push",
+    "gstart": "clasp push --watch",
+    "start": "parcel src/index.html --dist-dir ./apps",
+    "build": "parcel build src/index.html --dist-dir ./apps"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/claudiomf1/estudo_react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/claudiomf1/estudo_react/issues"
+  },
+  "homepage": "https://github.com/claudiomf1/estudo_react#readme",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.56",
+    "parcel": "^2.8.2"
+  },
+  "dependencies": {
+    "react-router-dom": "^6.6.0"
+  }
+}
