@@ -1,15 +1,16 @@
-18599
-39/home/claudio/ESTUDO REACT/package.json1676219769104965480 0
+18598
+39/home/claudio/ESTUDO REACT/package.json1676236932529610108 0
 48/home/claudio/ESTUDO REACT/.vscode/settings.json1671654700610885352 0
 34/home/claudio/ESTUDO REACT/.vscode1671654700610885352 1
 39/home/claudio/ESTUDO REACT/.claspignore1671654700526884377 0
 43/home/claudio/ESTUDO REACT/.prettierrc.json1668177820880240131 0
-39/home/claudio/ESTUDO REACT/src/route.js1676221339666873863 0
+39/home/claudio/ESTUDO REACT/src/route.js1676223046764133301 0
 41/home/claudio/ESTUDO REACT/src/index.html1676216490737532028 0
 52/home/claudio/ESTUDO REACT/src/components/pages/Home1671654700618885443 1
+97/home/claudio/ESTUDO REACT/src/components/pages/CadastroGeral/cadastro-geral-pesquisa-e-edicao.js1676245438824787925 0
 47/home/claudio/ESTUDO REACT/src/components/pages1676153487747967810 1
 41/home/claudio/ESTUDO REACT/src/components1672757588779537558 1
-30/home/claudio/ESTUDO REACT/src1676219005618817147 1
+30/home/claudio/ESTUDO REACT/src1676222936961822316 1
 40/home/claudio/ESTUDO REACT/.editorconfig1671654700526884377 0
 57/home/claudio/ESTUDO REACT/node_modules/tr46/package.json1671654993705895216 0
 53/home/claudio/ESTUDO REACT/node_modules/tr46/index.js1671654993785895949 0
@@ -2593,7 +2594,6 @@
 84/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/cloudbuild/v1.d.ts1676219767504953902 0
 90/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/cloudbuild/v1alpha2.d.ts1676219767856956449 0
 86/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/oslogin/v1alpha.d.ts1676219767804956073 0
-42/home/claudio/ESTUDO REACT/src/App copy.js1676218981602590108 0
 82/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/blogger/index.js1676219764360931143 0
 73/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/oslogin1676219767940957057 1
 98/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/binaryauthorization/v1beta1.d.ts1676219767956957173 0
@@ -3262,7 +3262,7 @@
 77/home/claudio/ESTUDO REACT/node_modules/log-symbols/node_modules/chalk/source1676219763928928015 1
 70/home/claudio/ESTUDO REACT/node_modules/log-symbols/node_modules/chalk1676219763908927869 1
 51/home/claudio/ESTUDO REACT/node_modules/log-symbols1676219763816927203 1
-58/home/claudio/ESTUDO REACT/node_modules/.package-lock.json1676219892941157304 0
+58/home/claudio/ESTUDO REACT/node_modules/.package-lock.json1676237599392956292 0
 66/home/claudio/ESTUDO REACT/node_modules/lightningcss-linux-x64-gnu1671654994189899652 1
 68/home/claudio/ESTUDO REACT/node_modules/@types/node/async_hooks.d.ts1676219763864927551 0
 56/home/claudio/ESTUDO REACT/node_modules/is-docker/cli.js1676219763744926682 0
@@ -4896,7 +4896,7 @@
 99/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/bindCallbackInternals.js1676219764244930302 0
 88/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/concat.js.map1676219765080936355 0
 81/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/iif.js1676219764392931374 0
-37/home/claudio/ESTUDO REACT/src/App.js1676221336458817358 0
+37/home/claudio/ESTUDO REACT/src/App.js1676240304032057041 0
 83/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/defer.js1676219764312930796 0
 83/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/merge.js1676219764500932157 0
 85/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm5/internal/observable/zip.js.map1676219766028943219 0
@@ -5828,7 +5828,7 @@
 97/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/firebasedynamiclinks/index.d.ts1676219767032950486 0
 54/home/claudio/ESTUDO REACT/node_modules/dotenv/LICENSE1671654994309900752 0
 61/home/claudio/ESTUDO REACT/node_modules/bootstrap/js/dist/dom1672759939143735757 1
-44/home/claudio/ESTUDO REACT/package-lock.json1676219892917155724 0
+44/home/claudio/ESTUDO REACT/package-lock.json1676237599368956048 0
 93/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/esm/internal/scheduler/AsapScheduler.js.map1676219764996935748 0
 105/home/claudio/ESTUDO REACT/node_modules/@parcel/package-manager/test/fixtures/packages/peers-2.0/index.js1671654996453920384 0
 73/home/claudio/ESTUDO REACT/node_modules/bootstrap/js/dist/carousel.js.map1672759939139735754 0
@@ -9672,7 +9672,7 @@
 82/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/eventarc/v1.d.ts1676219767680955175 0
 67/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/cjs/internal/util1676219766004943045 1
 75/home/claudio/ESTUDO REACT/node_modules/@parcel/runtime-js/lib/helpers/node1671654995885915186 1
-45/home/claudio/ESTUDO REACT/node_modules/@lmdb1676219892841150725 1
+45/home/claudio/ESTUDO REACT/node_modules/@lmdb1676237599308955437 1
 83/home/claudio/ESTUDO REACT/node_modules/googleapis/build/src/apis/civicinfo/v2.d.ts1676219768128958418 0
 109/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/src/internal/Rx.ts1676219767144951296 0
 72/home/claudio/ESTUDO REACT/node_modules/url-template/lib/url-template.js1671654994013898040 0
@@ -9767,7 +9767,7 @@
 61/home/claudio/ESTUDO REACT/node_modules/is-arrayish/README.md1671654993797896060 0
 91/home/claudio/ESTUDO REACT/node_modules/globals/node_modules/type-fest/source/value-of.d.ts1671654997317928289 0
 119/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/operator/bufferToggle.js.map1676219765288937861 0
-42/home/claudio/ESTUDO REACT/apps/index.html1676221384107650511 0
+42/home/claudio/ESTUDO REACT/apps/index.html1676245468025070014 0
 96/home/claudio/ESTUDO REACT/node_modules/@babel/runtime/helpers/classStaticPrivateFieldSpecGet.js1672758839232303021 0
 85/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/cjs/internal/util/argsOrArgArray.js1676219764164929723 0
 71/home/claudio/ESTUDO REACT/node_modules/caniuse-lite/data/regions/NR.js1671654996489920714 0
@@ -11252,7 +11252,7 @@
 93/home/claudio/ESTUDO REACT/node_modules/@swc/helpers/src/_class_private_field_destructure.mjs1671654995113908118 0
 62/home/claudio/ESTUDO REACT/node_modules/lodash/fp/fromPairs.js1671654996241918445 0
 88/home/claudio/ESTUDO REACT/node_modules/css-select/lib/pseudo-selectors/filters.d.ts.map1671654994709904417 0
-31/home/claudio/ESTUDO REACT/apps1676221384111650580 1
+31/home/claudio/ESTUDO REACT/apps1676245468025070014 1
 81/home/claudio/ESTUDO REACT/node_modules/@parcel/reporter-dev-server/src/Server.js1671654996757923166 0
 122/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/internal/util/TimeoutError.d.ts1676219767448953497 0
 85/home/claudio/ESTUDO REACT/node_modules/abortcontroller-polyfill/dist/umd-polyfill.js1671654994613903538 0
@@ -12693,7 +12693,6 @@
 66/home/claudio/ESTUDO REACT/node_modules/@parcel/utils/.eslintrc.js1671654995297909802 0
 67/home/claudio/ESTUDO REACT/node_modules/lodash/sortedLastIndexOf.js1671654996745923056 0
 87/home/claudio/ESTUDO REACT/node_modules/@parcel/transformer-json/lib/JSONTransformer.js1671654995277909619 0
-44/home/claudio/ESTUDO REACT/src/route copy.js1676219005618817147 0
 127/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/src/observable/dom/AjaxObservable.ts1676219766492946577 0
 79/home/claudio/ESTUDO REACT/node_modules/svgo/plugins/cleanupEnableBackground.js1671654994525902731 0
 63/home/claudio/ESTUDO REACT/node_modules/function-bind/.eslintrc1671654994085898700 0
@@ -13642,7 +13641,7 @@
 71/home/claudio/ESTUDO REACT/node_modules/caniuse-lite/data/regions/KP.js1671654996301918994 0
 71/home/claudio/ESTUDO REACT/node_modules/caniuse-lite/data/regions/CY.js1671654995921915516 0
 127/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/throttle.js1676219765016935892 0
-61/home/claudio/ESTUDO REACT/src/components/pages/CadastroGeral1676216638510282247 1
+61/home/claudio/ESTUDO REACT/src/components/pages/CadastroGeral1676222891820855478 1
 60/home/claudio/ESTUDO REACT/node_modules/@types/node/readline1676219764220930128 1
 97/home/claudio/ESTUDO REACT/node_modules/dom-serializer/node_modules/entities/lib/maps/decode.json1671654994197899726 0
 126/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/internal/testing/TestScheduler.d.ts1676219767380953004 0
@@ -13682,7 +13681,7 @@
 132/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm2015/internal/operators/bufferTime.js1676219764224930157 0
 133/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/withLatestFrom.js1676219765136936762 0
 125/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/sample.js1676219764820934473 0
-39/home/claudio/ESTUDO REACT/node_modules1676219892841150725 1
+39/home/claudio/ESTUDO REACT/node_modules1676237599308955437 1
 129/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/windowWhen.js1676219765132936732 0
 75/home/claudio/ESTUDO REACT/node_modules/@parcel/utils/src/getModuleParts.js1671654995469911378 0
 125/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/internal/operators/windowWhen.d.ts1676219767580954452 0
@@ -13708,7 +13707,7 @@
 71/home/claudio/ESTUDO REACT/node_modules/update-browserslist-db/index.js1671654993865896683 0
 62/home/claudio/ESTUDO REACT/node_modules/ansi-styles/index.d.ts1671654994001897930 0
 84/home/claudio/ESTUDO REACT/node_modules/cli-width/.nyc_output/processinfo/index.json1676219763856927492 0
-57/home/claudio/ESTUDO REACT/node_modules/@msgpackr-extract1676219892841150725 1
+57/home/claudio/ESTUDO REACT/node_modules/@msgpackr-extract1676237599304955397 1
 86/home/claudio/ESTUDO REACT/node_modules/rxjs/dist/types/internal/observable/timer.d.ts1676219766632947590 0
 126/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/toArray.js1676219765060936211 0
 128/home/claudio/ESTUDO REACT/node_modules/inquirer-autocomplete-prompt-ipt/node_modules/rxjs/_esm5/internal/operators/count.js.map1676219765336938209 0
