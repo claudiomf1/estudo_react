@@ -15,9 +15,8 @@ import {
 import { masks } from "../../../utils/masks"
 
 //import "../../../components/styles.scss"
-//import { fetchAddress } from "../../../backend/google-apps-script"
 
-function CadastroGeral() {
+function CadastroGeral({ onSave }) {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
    const [cpf, setCpf] = useState("")
@@ -45,26 +44,6 @@ function CadastroGeral() {
    const [showAlert_tel, setShowAlertTel] = useState(false)
    const [isValidAddress, setIsValidAddress] = useState(false)
    const [buscarCepAtivo, setBuscarCepAtivo] = useState(false)
-
-   // useEffect(() => {
-   //    async function fetchData() {
-   //       if (isValidCep && cep.length === 9) {
-   //          try {
-   //             const address = await fetchAddress(cep)
-   //             if (address) {
-   //                setEndereco(address.endereco)
-   //                setBairro(address.bairro)
-   //                setCidade(address.cidade)
-   //                setUf(address.uf)
-   //             }
-   //          } catch (error) {
-   //             console.log("Ocorreu um erro ao buscar o endereço:", error)
-   //             console.log("address =>", address)
-   //          }
-   //       }
-   //    }
-   //    fetchData()
-   // }, [cep, isValidCep])
 
    const handleNomeChange = (event) => {
       setNome(event.target.value)
@@ -269,30 +248,6 @@ function CadastroGeral() {
       checkInputs()
    }
 
-   // const handleBuscarCep = (event) => {
-   //    event.preventDefault()
-
-   //    setIsValidAddress(true)
-
-   //    async function fetchCep() {
-   //       if (isValidAddress) {
-   //          const url = `https://viacep.com.br/ws/${uf}/${cidade}/${endereco}/json/`
-   //          try {
-   //             const response = await fetch(url)
-   //             const data = await response.json()
-   //             if (typeof data.erro === "undefined" || !data.erro) {
-   //                setCep(data[0].cep)
-   //                setisValidCep(true)
-   //             }
-   //          } catch (error) {
-   //             console.error(`Erro ao buscar CEP: ${error}`)
-   //          }
-   //       }
-   //    }
-
-   //    fetchCep()
-   // }
-
    const handleSubmit = (event) => {
       event.preventDefault()
 
@@ -330,7 +285,7 @@ function CadastroGeral() {
             <h2 style={{ marginBottom: "3rem" }}>NOVO CADASTRO GERAL</h2>
             <ShowAlertCPF message="Por favor, insira um número de CPF válido" />
             <ShowAlertCep message="Por favor, insira um número de CEP válido" />
-            <ShowAlertEmail message="Por favor, insira um endereço de email válido!" />
+            <ShowAlertEmail message="Por favor, insira um endereço de email válido" />
             <ShowAlertTel message="Por favor, insira um número de telefone válido" />
             <FormGroup>
                <Row>
@@ -449,7 +404,6 @@ function CadastroGeral() {
                         // className={
                         //    buscarCepAtivo ? "" : "disabled-button disabled"
                         // }
-                        //  onClick={handleBuscarCep}
                      >
                         Buscar CEP
                      </Button>

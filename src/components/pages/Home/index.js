@@ -11,7 +11,7 @@ function Home() {
    } = useGoogleSheets({
       apiKey: "AIzaSyDs11gmvAQb2xdRL_fWVvhrTRKyz4NoZ5w",
       sheetId: "1DHcDn2eTzk6VNa3x3fhQ1X_RgTpGHfV09VWxHD2gk54",
-      sheetsOptions: [{ id: "Clientes", headerRowIndex: 4, range: "C6:C7" }],
+      sheetsOptions: [{ id: "clientes", headerRowIndex: 4, range: "C6:C" }],
    })
    if (loading) {
       return <div>Loading...</div>
@@ -27,7 +27,7 @@ function Home() {
       <>
          <h1>Rodando do vscode projeto apps scricpt com react TESTE</h1>
          <SelectSourch
-            titulo="Escolha um cliente"
+            titulo="Escolha um   cliente"
             initialData={data.map((c) => [c.CLIENTE])}
          />
       </>

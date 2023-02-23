@@ -1,6 +1,6 @@
 import React from "react"
 import { Navbar, Container, Button, FormControl, Table } from "react-bootstrap"
-
+import { Link } from "react-router-dom"
 function CadastroGeralPE() {
    window.addEventListener("load", function () {
       document
@@ -20,18 +20,9 @@ function CadastroGeralPE() {
                   Cadastro de Usuários
                </Navbar.Brand>
                <div className="d-flex">
-                  <Button
-                     variant="outline-success"
-                     className="me-2"
-                     id="btn-new-reg"
-                     onClick={() =>
-                        (window.location.href =
-                           "https://script.google.com/macros/s/AKfycbx_-IovzM5dt8KRIjqufiqyFKQr2X8W-dycp2X_teUK/dev")
-                     }
-                  >
-                     Cadastrar
-                  </Button>
-
+                  <Link to="/cadastro-geral">
+                     <Button>Cadastrar</Button>
+                  </Link>
                   <FormControl
                      type="text"
                      placeholder="Pesquisa"
