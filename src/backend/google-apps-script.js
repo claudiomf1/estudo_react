@@ -7,24 +7,25 @@
 //    })
 // }
 
-// export function fetchAddress(cep) {
-//    try {
-//       let cepSemHifen = cep.replace("-", "")
-//       const url = `https://viacep.com.br/ws/${cepSemHifen}/json/`
-//       const response = UrlFetchApp.fetch(url)
-//       const data = JSON.parse(response.getContentText())
-//       if (!data.erro) {
-//          return {
-//             endereco: data.logradouro,
-//             bairro: data.bairro,
-//             cidade: data.localidade,
-//             uf: data.uf,
-//          }
-//       }
-//       return null
-//    } catch (error) {
-//       console.log("Ocorreu um erro ao buscar o :", error)
-//       console.log("response =>", response)
-//       return null
-//    }
-// }
+export function fetchAddress(cep) {
+   try {
+      console.log("cep =>", cep)
+      let cepSemHifen = cep.replace("-", "")
+      const url = `https://viacep.com.br/ws/${cepSemHifen}/json/`
+      const response = UrlFetchApp.fetch(url)
+      const data = JSON.parse(response.getContentText())
+      if (!data.erro) {
+         return {
+            endereco: data.logradouro,
+            bairro: data.bairro,
+            cidade: data.localidade,
+            uf: data.uf,
+         }
+      }
+      return null
+   } catch (error) {
+      console.log("Ocorreu um erro ao buscar o :", error)
+      console.log("response =>", response)
+      return null
+   }
+}

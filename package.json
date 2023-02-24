@@ -9,7 +9,7 @@
       "gpush": "clasp push",
       "gstart": "clasp push --watch",
       "start": "parcel src/index.html --dist-dir ./apps",
-      "parcel": "parcel build src/index.html --dist-dir ./apps --log-level verbose "
+      "parcel": "parcel build src/index.html --dist-dir ./apps"
    },
    "repository": {
       "type": "git",

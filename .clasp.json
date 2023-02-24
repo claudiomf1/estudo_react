@@ -1,1 +1,6 @@
-{"scriptId":"1wNAyA_FhzdaYphp1SSrDy_s9NLPoU1eYg1GctXKwmOr8inA1EXVq3nBK","rootDir":"/home/claudio/ESTUDO REACT/apps"}
+{
+   "scriptId": "1U27MCRXCErQMc13MPcBuz4esPUXHVK-ags8M5beMctP02MHrIlZbTC2d",
+   "rootDir": "./apps",
+   "ignore": [".apps/appsscript.json"]
+}
+

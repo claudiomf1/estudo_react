@@ -15,9 +15,9 @@ import {
 import { masks } from "../../../utils/masks"
 
 //import "../../../components/styles.scss"
-//import { fetchAddress } from "../../../backend/google-apps-script"
+import { fetchAddress } from "../../../backend/google-apps-script"
 
-function CadastroGeral() {
+function CadastroGeral(fetchAddress) {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
    const [cpf, setCpf] = useState("")
@@ -45,26 +45,27 @@ function CadastroGeral() {
    const [showAlert_tel, setShowAlertTel] = useState(false)
    const [isValidAddress, setIsValidAddress] = useState(false)
    const [buscarCepAtivo, setBuscarCepAtivo] = useState(false)
-
-   // useEffect(() => {
-   //    async function fetchData() {
-   //       if (isValidCep && cep.length === 9) {
-   //          try {
-   //             const address = await fetchAddress(cep)
-   //             if (address) {
-   //                setEndereco(address.endereco)
-   //                setBairro(address.bairro)
-   //                setCidade(address.cidade)
-   //                setUf(address.uf)
-   //             }
-   //          } catch (error) {
-   //             console.log("Ocorreu um erro ao buscar o endereço:", error)
-   //             console.log("address =>", address)
-   //          }
-   //       }
-   //    }
-   //    fetchData()
-   // }, [cep, isValidCep])
+   let address
+   useEffect(() => {
+      console.log("fetchAddress ", fetchAddress)
+      async function fetchData() {
+         if (isValidCep && cep.length === 9) {
+            try {
+               address = await fetchAddress(cep)
+               if (address) {
+                  setEndereco(address.endereco)
+                  setBairro(address.bairro)
+                  setCidade(address.cidade)
+                  setUf(address.uf)
+               }
+            } catch (error) {
+               console.log("address =>", address)
+               console.log("Ocorreu um erro ao  buscar o endereçoo:", error)
+            }
+         }
+      }
+      fetchData()
+   }, [cep, isValidCep])
 
    const handleNomeChange = (event) => {
       setNome(event.target.value)
@@ -328,7 +329,7 @@ function CadastroGeral() {
       <div className="d-flex align-items-center" style={{ height: "100vh" }}>
          <div className="text-center mx-auto" style={{ maxWidth: "2000px" }}>
             <h2 style={{ marginBottom: "3rem" }}>NOVO CADASTRO GERAL</h2>
-            <ShowAlertCPF message="Por favor, insira um número de CPF válido" />
+            <ShowAlertCPF message="Por favor, insira   um número de CPF válido" />
             <ShowAlertCep message="Por favor, insira um número de CEP válido" />
             <ShowAlertEmail message="Por favor, insira um endereço de email válido!" />
             <ShowAlertTel message="Por favor, insira um número de telefone válido" />
