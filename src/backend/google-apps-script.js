@@ -9,7 +9,7 @@
 
 export function fetchAddress(cep) {
    try {
-      console.log("cep =>", cep)
+      console.log("cepppp =>", cep)
       let cepSemHifen = cep.replace("-", "")
       const url = `https://viacep.com.br/ws/${cepSemHifen}/json/`
       const response = UrlFetchApp.fetch(url)
@@ -26,6 +26,22 @@ export function fetchAddress(cep) {
    } catch (error) {
       console.log("Ocorreu um erro ao buscar o :", error)
       console.log("response =>", response)
+      return null
+   }
+}
+
+export async function getAddressData(cep, fetchAddressFuncName) {
+   try {
+      console.log("cep =>", cep)
+      console.log("fetchAddressFuncName =>", fetchAddressFuncName)
+      const fetchAddressFunc = new Function("cep", fetchAddressFuncName)
+      const address = fetchAddressFunc(cep)
+      return address
+   } catch (error) {
+      console.log(
+         "Ocorreu um erro ao buscar o endereço no google apps script:",
+         error
+      )
       return null
    }
 }

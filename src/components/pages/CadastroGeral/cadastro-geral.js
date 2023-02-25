@@ -15,9 +15,18 @@ import {
 import { masks } from "../../../utils/masks"
 
 //import "../../../components/styles.scss"
-import { fetchAddress } from "../../../backend/google-apps-script"
-
-function CadastroGeral(fetchAddress) {
+// import { getAddressData } from "../../../backend/google-apps-script"
+//import { fetchAddress } from "../../../backend/google-apps-script"
+function gRun(callback, parametro = "", minhafuncao) {
+   console.log("parametro =>", parametro)
+   console.log("minhafuncao =>", minhafuncao)
+   console.log("google.script.run =>  ", google.script.run)
+   google.script.run
+      .withSuccessHandler(callback)
+      .withFailureHandler((error) => $("#loading").hide())
+      [minhafuncao](parametro)
+}
+function CadastroGeral() {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
    const [cpf, setCpf] = useState("")
@@ -46,26 +55,31 @@ function CadastroGeral(fetchAddress) {
    const [isValidAddress, setIsValidAddress] = useState(false)
    const [buscarCepAtivo, setBuscarCepAtivo] = useState(false)
    let address
+
    useEffect(() => {
-      console.log("fetchAddress ", fetchAddress)
       async function fetchData() {
          if (isValidCep && cep.length === 9) {
             try {
-               address = await fetchAddress(cep)
-               if (address) {
-                  setEndereco(address.endereco)
-                  setBairro(address.bairro)
-                  setCidade(address.cidade)
-                  setUf(address.uf)
-               }
+               gRun(
+                  (data) => {
+                     setEndereco(data.endereco)
+                     setBairro(data.bairro)
+                     setCidade(data.cidade)
+                     setUf(data.uf)
+                  },
+                  cep.replace("-", ""),
+                  "fetchAddress"
+               )
             } catch (error) {
-               console.log("address =>", address)
-               console.log("Ocorreu um erro ao  buscar o endereçoo:", error)
+               console.log(
+                  "Ocorreu um erro ao buscar o endereço no cadastro geral:",
+                  error
+               )
             }
          }
       }
       fetchData()
-   }, [cep, isValidCep])
+   }, [cep])
 
    const handleNomeChange = (event) => {
       setNome(event.target.value)

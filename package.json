@@ -5,6 +5,7 @@
    "scripts": {
       "glogin": "clasp login",
       "glogout": "clasp logout",
+      "gcreate": "clasp create --type webapp --title \"Estudo React\" --rootDir ./apps",
       "gpull": "clasp pull",
       "gpush": "clasp push",
       "gstart": "clasp push --watch",
