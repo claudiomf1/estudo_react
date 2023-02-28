@@ -30,7 +30,6 @@ function CadastroGeral() {
    const [email, setEmail] = useState("")
    const [originalEmail, setOriginalEmail] = useState("")
    const [isValidEmail, setisValidEmail] = useState(true)
-   const [isValidTel, setisValidTel] = useState(true)
    const [cep, setCep] = useState("")
    const [isValidCep, setisValidCep] = useState(true)
    const [endereco, setEndereco] = useState("")
@@ -44,7 +43,6 @@ function CadastroGeral() {
    const [showAlert_cep, setShowAlertCep] = useState(false)
    const [showAlert_email, setShowAlertEmail] = useState(false)
    const [showAlert_tel, setShowAlertTel] = useState(false)
-   const [isValidAddress, setIsValidAddress] = useState(false)
    const [buscarCepAtivo, setBuscarCepAtivo] = useState(false)
    let address
 
@@ -64,6 +62,26 @@ function CadastroGeral() {
 
       fetchData()
    }, [cep])
+
+   useEffect(() => {
+      const fetchCep = async () => {
+         try {
+            const data = await lookupCep(uf, cidade, endereco)
+            if (typeof data.erro === "undefined" || !data.erro) {
+               setCep(data[0].cep)
+               setisValidCep(true)
+            }
+         } catch (error) {
+            setisValidCep(false)
+            setCep("")
+            console.error(`Erro ao buscar CEP: ${error}`)
+         }
+      }
+
+      if (endereco !== "" && cidade !== "" && uf !== "") {
+         fetchCep()
+      }
+   }, [endereco, cidade, uf])
 
    const handleNomeChange = (event) => {
       setNome(event.target.value)
@@ -241,11 +259,13 @@ function CadastroGeral() {
    }
 
    const handleEnderecoChange = (event) => {
+      setUf("")
+      setCep("")
       setEndereco(event.target.value)
    }
 
    const handleEnderecoKeyUp = (event) => {
-      checkInputs()
+      //  checkInputs()
    }
 
    const handleNumeroChange = (event) => {
@@ -265,20 +285,20 @@ function CadastroGeral() {
    }
 
    const handleCidadeKeyUp = (event) => {
-      checkInputs()
+      //  checkInputs()
    }
 
    const handleUfChange = (event) => {
       setUf(event.target.value)
    }
    const handleUfKeyUp = (event) => {
-      checkInputs()
+      //  checkInputs()
    }
 
    const handleBuscarCep = async (event, uf, cidade, endereco) => {
       event.preventDefault()
 
-      setIsValidAddress(true)
+      //      setIsValidAddress(true)
 
       try {
          console.log("uf =>", uf)
@@ -292,6 +312,7 @@ function CadastroGeral() {
             setisValidCep(true)
          }
       } catch (error) {
+         setCep("")
          console.error(`Erro ao buscar CEP: ${error}`)
       }
    }
@@ -444,7 +465,7 @@ function CadastroGeral() {
                         style={{ marginRight: "10px" }}
                      />
                   </Col>
-                  <Col md={2} className="mb-3">
+                  {/* <Col md={2} className="mb-3">
                      <Button
                         type="submit"
                         variant="outline-primary"
@@ -458,7 +479,7 @@ function CadastroGeral() {
                      >
                         Buscar CEP
                      </Button>
-                  </Col>
+                  </Col> */}
                </Row>
 
                <Row>
