@@ -14,18 +14,10 @@ import {
 
 import { masks } from "../../../utils/masks"
 
+import { lookupAddress, lookupCep } from "/src/utils/address-utils.js"
+
 //import "../../../components/styles.scss"
-// import { getAddressData } from "../../../backend/google-apps-script"
-//import { fetchAddress } from "../../../backend/google-apps-script"
-function gRun(callback, parametro = "", minhafuncao) {
-   console.log("parametro =>", parametro)
-   console.log("minhafuncao =>", minhafuncao)
-   console.log("google.script.run =>  ", google.script.run)
-   google.script.run
-      .withSuccessHandler(callback)
-      .withFailureHandler((error) => $("#loading").hide())
-      [minhafuncao](parametro)
-}
+
 function CadastroGeral() {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
@@ -59,25 +51,17 @@ function CadastroGeral() {
    useEffect(() => {
       async function fetchData() {
          if (isValidCep && cep.length === 9) {
-            try {
-               gRun(
-                  (data) => {
-                     setEndereco(data.endereco)
-                     setBairro(data.bairro)
-                     setCidade(data.cidade)
-                     setUf(data.uf)
-                  },
-                  cep.replace("-", ""),
-                  "fetchAddress"
-               )
-            } catch (error) {
-               console.log(
-                  "Ocorreu um erro ao buscar o endereço no cadastro geral:",
-                  error
-               )
-            }
+            const addressPromise = lookupAddress(cep)
+            addressPromise
+               .then((data) => {
+                  setAddress(data)
+               })
+               .catch((error) => {
+                  console.error("erro aqui ", error)
+               })
          }
       }
+
       fetchData()
    }, [cep])
 
@@ -154,6 +138,13 @@ function CadastroGeral() {
 
       setCpf(maskedValue || value)
       setisValidCpf(maskedValue && maskedValue.length === 14)
+   }
+
+   function setAddress(data) {
+      setEndereco(data.logradouro)
+      setBairro(data.bairro)
+      setCidade(data.localidade)
+      setUf(data.uf)
    }
 
    const handleCpfBlur = (event) => {
@@ -284,29 +275,26 @@ function CadastroGeral() {
       checkInputs()
    }
 
-   // const handleBuscarCep = (event) => {
-   //    event.preventDefault()
+   const handleBuscarCep = async (event, uf, cidade, endereco) => {
+      event.preventDefault()
 
-   //    setIsValidAddress(true)
+      setIsValidAddress(true)
 
-   //    async function fetchCep() {
-   //       if (isValidAddress) {
-   //          const url = `https://viacep.com.br/ws/${uf}/${cidade}/${endereco}/json/`
-   //          try {
-   //             const response = await fetch(url)
-   //             const data = await response.json()
-   //             if (typeof data.erro === "undefined" || !data.erro) {
-   //                setCep(data[0].cep)
-   //                setisValidCep(true)
-   //             }
-   //          } catch (error) {
-   //             console.error(`Erro ao buscar CEP: ${error}`)
-   //          }
-   //       }
-   //    }
+      try {
+         console.log("uf =>", uf)
+         console.log("cidade =>", cidade)
+         console.log("endereco =>", endereco)
 
-   //    fetchCep()
-   // }
+         const data = await lookupCep(uf, cidade, endereco)
+         console.log("data =>", data)
+         if (typeof data.erro === "undefined" || !data.erro) {
+            setCep(data[0].cep)
+            setisValidCep(true)
+         }
+      } catch (error) {
+         console.error(`Erro ao buscar CEP: ${error}`)
+      }
+   }
 
    const handleSubmit = (event) => {
       event.preventDefault()
@@ -409,7 +397,7 @@ function CadastroGeral() {
                         value={cpf}
                         onChange={handleCpfChange}
                         onBlur={handleCpfBlur}
-                        // className={isValidCpf ? "" : "invalid-filed"}
+                        className={isValidCpf ? "" : "invalid-filed"}
                      />
                   </Col>
                </Row>
@@ -438,7 +426,7 @@ function CadastroGeral() {
                         onChange={(event) => setEmail(event.target.value)}
                         onBlur={handleEmailBlur}
                         onFocus={handleEmailFocus}
-                        // className={isValidEmail ? "" : "invalid-filed"}
+                        className={isValidEmail ? "" : "invalid-filed"}
                      />
                   </Col>
                </Row>
@@ -452,7 +440,7 @@ function CadastroGeral() {
                         value={cep}
                         onChange={handleCepChange}
                         onBlur={handleCepBlur}
-                        // className={isValidCep ? "" : "invalid-filed"}
+                        className={isValidCep ? "" : "invalid-filed"}
                         style={{ marginRight: "10px" }}
                      />
                   </Col>
@@ -461,10 +449,12 @@ function CadastroGeral() {
                         type="submit"
                         variant="outline-primary"
                         style={{ width: "100%" }}
-                        // className={
-                        //    buscarCepAtivo ? "" : "disabled-button disabled"
-                        // }
-                        //  onClick={handleBuscarCep}
+                        className={
+                           buscarCepAtivo ? "" : "disabled-button disabled"
+                        }
+                        onClick={(event) =>
+                           handleBuscarCep(event, uf, cidade, endereco)
+                        }
                      >
                         Buscar CEP
                      </Button>
