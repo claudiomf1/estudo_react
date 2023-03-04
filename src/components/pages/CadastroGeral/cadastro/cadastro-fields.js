@@ -99,6 +99,25 @@ export function CpfImput() {
       setShowAlertCPF,
       showAlert_cpf,
    } = useContext(MyContext)
+   const { handleCpfChange, handleCpfBlur } = EventosCPF(
+      setCpf,
+      setisValidCpf,
+      setisBlurred,
+      setShowAlertCPF
+   )
+   return (
+      <FormControl
+         id="input-cpf"
+         placeholder="CPF"
+         value={cpf}
+         onChange={handleCpfChange}
+         onBlur={handleCpfBlur}
+         className={isValidCpf ? "" : "invalid-filed"}
+      />
+   )
+}
+
+function EventosCPF(setCpf, setisValidCpf, setisBlurred, setShowAlertCPF) {
    const handleCpfChange = (event) => {
       const value = event.target.value
       const maskedValue = masks.cpf(value)
@@ -122,16 +141,7 @@ export function CpfImput() {
          setShowAlertCPF(true)
       }
    }
-   return (
-      <FormControl
-         id="input-cpf"
-         placeholder="CPF"
-         value={cpf}
-         onChange={handleCpfChange}
-         onBlur={handleCpfBlur}
-         className={isValidCpf ? "" : "invalid-filed"}
-      />
-   )
+   return { handleCpfChange, handleCpfBlur }
 }
 
 export function TelefoneImput() {
@@ -143,6 +153,33 @@ export function TelefoneImput() {
       setisBlurred,
       setShowAlertTel,
    } = useContext(MyContext)
+   const { handleTelefoneChange, handleTelefoneBlur } = EventosTelefone(
+      setTelefone,
+      setisValidTel,
+      setisBlurred,
+      setShowAlertTel
+   )
+   return (
+      <FormControl
+         noValidate={true}
+         id="cd-fone"
+         placeholder="(XX) XXXX-XXXX"
+         type="tel"
+         pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}"
+         value={telefone}
+         onChange={handleTelefoneChange}
+         onBlur={handleTelefoneBlur}
+         className={isValidTel ? "" : "invalid-filed"}
+      />
+   )
+}
+
+function EventosTelefone(
+   setTelefone,
+   setisValidTel,
+   setisBlurred,
+   setShowAlertTel
+) {
    const handleTelefoneChange = (event) => {
       const value = event.target.value
       const maskedValue = masks.phone(value)
@@ -164,19 +201,7 @@ export function TelefoneImput() {
          setShowAlertTel(true)
       }
    }
-   return (
-      <FormControl
-         noValidate={true}
-         id="cd-fone"
-         placeholder="(XX) XXXX-XXXX"
-         type="tel"
-         pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}"
-         value={telefone}
-         onChange={handleTelefoneChange}
-         onBlur={handleTelefoneBlur}
-         className={isValidTel ? "" : "invalid-filed"}
-      />
-   )
+   return { handleTelefoneChange, handleTelefoneBlur }
 }
 
 export function EmailImput() {
@@ -191,6 +216,37 @@ export function EmailImput() {
       setOriginalEmail,
    } = useContext(MyContext)
 
+   const { handleEmailBlur, handleEmailFocus } = EventosEmail(
+      setisBlurred,
+      setisValidEmail,
+      setShowAlertEmail,
+      setEmail,
+      setOriginalEmail,
+      originalEmail
+   )
+   return (
+      <FormControl
+         type="email"
+         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+         id="input-email"
+         placeholder="E-mail"
+         value={email}
+         onChange={(event) => setEmail(event.target.value)}
+         onBlur={handleEmailBlur}
+         onFocus={handleEmailFocus}
+         className={isValidEmail ? "" : "invalid-filed"}
+      />
+   )
+}
+
+function EventosEmail(
+   setisBlurred,
+   setisValidEmail,
+   setShowAlertEmail,
+   setEmail,
+   setOriginalEmail,
+   originalEmail
+) {
    const handleEmailBlur = (event) => {
       const value = event.target.value
       const maskedValue = masks.email(value)
@@ -212,19 +268,7 @@ export function EmailImput() {
 
       setOriginalEmail(value)
    }
-   return (
-      <FormControl
-         type="email"
-         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-         id="input-email"
-         placeholder="E-mail"
-         value={email}
-         onChange={(event) => setEmail(event.target.value)}
-         onBlur={handleEmailBlur}
-         onFocus={handleEmailFocus}
-         className={isValidEmail ? "" : "invalid-filed"}
-      />
-   )
+   return { handleEmailBlur, handleEmailFocus }
 }
 
 export function CepImput() {
@@ -238,6 +282,38 @@ export function CepImput() {
       setisBlurred,
       isBlurred,
    } = useContext(MyContext)
+   const { handleCepChange, handleCepBlur } = EventosCep(
+      setCep,
+      setisValidCep,
+      setisBlurred,
+      setShowAlertCep,
+      showAlert_cep,
+      isBlurred
+   )
+   return (
+      <FormControl
+         id="input-cep"
+         placeholder="Cep"
+         pattern="[0-9]{8}"
+         value={cep}
+         onChange={handleCepChange}
+         onBlur={handleCepBlur}
+         className={isValidCep ? "" : "invalid-filed"}
+         style={{
+            marginRight: "10px",
+         }}
+      />
+   )
+}
+
+function EventosCep(
+   setCep,
+   setisValidCep,
+   setisBlurred,
+   setShowAlertCep,
+   showAlert_cep,
+   isBlurred
+) {
    const handleCepChange = (event) => {
       const value = event.target.value
       const maskedValue = masks.cep(value)
@@ -264,20 +340,7 @@ export function CepImput() {
          console.log("isBlurred ", isBlurred)
       }
    }
-   return (
-      <FormControl
-         id="input-cep"
-         placeholder="Cep"
-         pattern="[0-9]{8}"
-         value={cep}
-         onChange={handleCepChange}
-         onBlur={handleCepBlur}
-         className={isValidCep ? "" : "invalid-filed"}
-         style={{
-            marginRight: "10px",
-         }}
-      />
-   )
+   return { handleCepChange, handleCepBlur }
 }
 
 export function EnderecoImput() {
@@ -363,20 +426,39 @@ export function MunicipiosSelect() {
 }
 
 export function EstadosSelect() {
-   const {
-      ufs,
-      setUfs,
-      uf,
-      setUf,
-      municipios,
-      setMunicipios,
-      setTitle,
-      todosMunicipios,
-      setTodosMunicipios,
-      setShowAlertCPF,
-   } = useContext(MyContext)
+   const { ufs, uf, setUf, setMunicipios, setTitle, todosMunicipios } =
+      useContext(MyContext)
 
-   const handleUfChange = (
+   const handleUfChange = EventosEstados(todosMunicipios)
+   return (
+      <select
+         id="uf"
+         className="form-select"
+         value={uf}
+         style={{
+            width: "74%",
+         }}
+         onChange={(event) =>
+            handleUfChange(
+               event,
+               "Escolha a cidade",
+               setUf,
+               ufs,
+               setMunicipios,
+               setTitle
+            )
+         }
+      >
+         {ufs.map((uf) => (
+            <option key={uf.value} value={uf.label}>
+               {uf.label}
+            </option>
+         ))}
+      </select>
+   )
+}
+function EventosEstados(todosMunicipios) {
+   return (
       event,
       titulo_padrao_selectsourch,
       setUf,
@@ -417,30 +499,4 @@ export function EstadosSelect() {
       setMunicipios(municipiosDaCidade)
       setTitle(titulo_padrao_selectsourch)
    }
-   return (
-      <select
-         id="uf"
-         className="form-select"
-         value={uf}
-         style={{
-            width: "74%",
-         }}
-         onChange={(event) =>
-            handleUfChange(
-               event,
-               "Escolha a cidade",
-               setUf,
-               ufs,
-               setMunicipios,
-               setTitle
-            )
-         }
-      >
-         {ufs.map((uf) => (
-            <option key={uf.value} value={uf.label}>
-               {uf.label}
-            </option>
-         ))}
-      </select>
-   )
 }
