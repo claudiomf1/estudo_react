@@ -3,7 +3,7 @@ import { FormSelect, FormControl } from "react-bootstrap"
 import SelectSourch from "../../../SelectSearch/SelectSearch.js"
 
 import { masks } from "../../../../utils/masks.js"
-import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-provider.js"
+import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-context.js"
 export function SelectSexo() {
    const { sexo, setSexo } = useContext(MyContext)
 

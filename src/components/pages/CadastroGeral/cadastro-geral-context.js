@@ -1,6 +1,4 @@
-import React, { useMemo, useState, createContext } from "react"
-
-import GeralContext from "/src/utils/react/context.js"
+import React, { createContext } from "react"
 
 export const MyContext = createContext({
    isBlurred: false,

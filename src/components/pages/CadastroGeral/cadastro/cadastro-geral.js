@@ -48,29 +48,9 @@ import {
    EstadosSelect,
 } from "./cadastro-fields.js"
 
-import {
-   handleCpfChange,
-   handleCpfBlur,
-   handleTelefoneChange,
-   handleTelefoneBlur,
-   handleEmailChange,
-   handleEmailBlur,
-   handleCepChange,
-   handleCepBlur,
-   handleEnderecoChange,
-   handleEnderecoKeyUp,
-   handleNumeroChange,
-   handleComplementoChange,
-   handleBairroChange,
-   handleCidadeChange,
-   handleUfChange,
-   handleUfKeyUp,
-   handleSubmit,
-   handleEmailFocus,
-} from "./cadastro-eventos.js"
+import { handleSubmit } from "./cadastro-eventos.js"
 
-//import { GeralContext } from "/src/utils/react/context.js"
-import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-provider.js"
+import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-context.js"
 function CadastroGeral() {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
@@ -107,61 +87,21 @@ function CadastroGeral() {
       useState([])
    const [title, setTitle] = useState("Escolha a cidade")
 
-   useEffect(() => {
-      async function fetchData() {
-         if (isValidCep && cep.length === 9) {
-            const addressPromise = lookupAddress(cep)
-            addressPromise
-               .then((data) => {
-                  setAddress(data)
-               })
-               .catch((error) => {
-                  console.error("erro aqui ", error)
-               })
-         }
-      }
-
-      fetchData()
-   }, [cep])
-
-   useEffect(() => {
-      const fetchCep = async () => {
-         try {
-            const data = await lookupCep(uf, cidade, endereco)
-            if (typeof data.erro === "undefined" || !data.erro) {
-               setCep(data[0].cep)
-               setisValidCep(true)
-            }
-         } catch (error) {
-            setisValidCep(false)
-            setCep("")
-            console.error(`Erro ao buscar CEP: ${error}`)
-         }
-      }
-
-      if (endereco !== "" && cidade !== "" && uf !== "") {
-         fetchCep()
-      }
-   }, [endereco, cidade, uf])
-
-   useEffect(() => {
-      try {
-         setTodosMunicipios(todosMunicipiosBrasil())
-         setUfs(getAllUfs())
-      } catch (error) {
-         console.error(error)
-         // aqui você pode adicionar código para lidar com o erro
-      }
-   }, [])
-
-   useEffect(() => {
-      setMunicipiosParaOSelectSource(function () {
-         const nomesMunicipios = Municipios.map((municipio) => [municipio.nome])
-         return nomesMunicipios
-      })
-
-      setTitle("Escolha a cidade ")
-   }, [Municipios])
+   UsersEfects(
+      isValidCep,
+      cep,
+      setAddress,
+      uf,
+      cidade,
+      endereco,
+      setCep,
+      setisValidCep,
+      setTodosMunicipios,
+      setUfs,
+      setMunicipiosParaOSelectSource,
+      Municipios,
+      setTitle
+   )
 
    function setAddress(data) {
       setEndereco(data.logradouro)
@@ -434,3 +374,74 @@ function CadastroGeral() {
 }
 
 export default CadastroGeral
+function UsersEfects(
+   isValidCep,
+   cep,
+   setAddress,
+   uf,
+   cidade,
+   endereco,
+   setCep,
+   setisValidCep,
+   setTodosMunicipios,
+   setUfs,
+   setMunicipiosParaOSelectSource,
+   Municipios,
+   setTitle
+) {
+   useEffect(() => {
+      async function fetchData() {
+         if (isValidCep && cep.length === 9) {
+            const addressPromise = lookupAddress(cep)
+            addressPromise
+               .then((data) => {
+                  setAddress(data)
+               })
+               .catch((error) => {
+                  console.error("erro aqui ", error)
+               })
+         }
+      }
+
+      fetchData()
+   }, [cep])
+
+   useEffect(() => {
+      const fetchCep = async () => {
+         try {
+            const data = await lookupCep(uf, cidade, endereco)
+            if (typeof data.erro === "undefined" || !data.erro) {
+               setCep(data[0].cep)
+               setisValidCep(true)
+            }
+         } catch (error) {
+            setisValidCep(false)
+            setCep("")
+            console.error(`Erro ao buscar CEP: ${error}`)
+         }
+      }
+
+      if (endereco !== "" && cidade !== "" && uf !== "") {
+         fetchCep()
+      }
+   }, [endereco, cidade, uf])
+
+   useEffect(() => {
+      try {
+         setTodosMunicipios(todosMunicipiosBrasil())
+         setUfs(getAllUfs())
+      } catch (error) {
+         console.error(error)
+         // aqui você pode adicionar código para lidar com o erro
+      }
+   }, [])
+
+   useEffect(() => {
+      setMunicipiosParaOSelectSource(function () {
+         const nomesMunicipios = Municipios.map((municipio) => [municipio.nome])
+         return nomesMunicipios
+      })
+
+      setTitle("Escolha a cidade ")
+   }, [Municipios])
+}
