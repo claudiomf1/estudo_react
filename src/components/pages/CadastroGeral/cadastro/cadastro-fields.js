@@ -95,7 +95,7 @@ export function CpfImput() {
       isValidCpf,
       setisValidCpf,
       isBlurred,
-      setIsBlurred,
+      setisBlurred,
       setShowAlertCPF,
       showAlert_cpf,
    } = useContext(MyContext)
@@ -111,7 +111,7 @@ export function CpfImput() {
       const value = event.target.value
       const maskedValue = masks.cpf(value)
 
-      setIsBlurred(true)
+      setisBlurred(true)
 
       if (maskedValue && maskedValue.length === 14) {
          setCpf(maskedValue)
@@ -135,8 +135,14 @@ export function CpfImput() {
 }
 
 export function TelefoneImput() {
-   const { telefone, setTelefone, isValidTel, setisValidTel } =
-      useContext(MyContext)
+   const {
+      telefone,
+      setTelefone,
+      isValidTel,
+      setisValidTel,
+      setisBlurred,
+      setShowAlertTel,
+   } = useContext(MyContext)
    const handleTelefoneChange = (event) => {
       const value = event.target.value
       const maskedValue = masks.phone(value)
@@ -148,7 +154,7 @@ export function TelefoneImput() {
       const value = event.target.value
       const maskedValue = masks.phone(value)
 
-      setIsBlurred(true)
+      setisBlurred(true)
       if (maskedValue && maskedValue.length === 15) {
          setTelefone(maskedValue)
          setisValidTel(true)
@@ -179,7 +185,7 @@ export function EmailImput() {
       setEmail,
       isValidEmail,
       setisValidEmail,
-      setIsBlurred,
+      setisBlurred,
       setShowAlertEmail,
       originalEmail,
       setOriginalEmail,
@@ -188,7 +194,7 @@ export function EmailImput() {
    const handleEmailBlur = (event) => {
       const value = event.target.value
       const maskedValue = masks.email(value)
-      setIsBlurred(true)
+      setisBlurred(true)
       if (!maskedValue && value.length > 0) {
          setisValidEmail(false)
          setShowAlertEmail(true)
@@ -222,7 +228,16 @@ export function EmailImput() {
 }
 
 export function CepImput() {
-   const { cep, setCep, isValidCep, setisValidCep } = useContext(MyContext)
+   const {
+      cep,
+      setCep,
+      isValidCep,
+      setisValidCep,
+      setShowAlertCep,
+      showAlert_cep,
+      setisBlurred,
+      isBlurred,
+   } = useContext(MyContext)
    const handleCepChange = (event) => {
       const value = event.target.value
       const maskedValue = masks.cep(value)
@@ -233,6 +248,9 @@ export function CepImput() {
    const handleCepBlur = (event) => {
       const value = event.target.value
       const maskedValue = masks.cep(value)
+
+      setisBlurred(true)
+
       if (maskedValue && maskedValue.length === 9) {
          setCep(maskedValue)
          setisValidCep(true)
@@ -242,6 +260,8 @@ export function CepImput() {
          setisValidCep(false)
 
          setShowAlertCep(true)
+         console.log("showAlert_cep ", showAlert_cep)
+         console.log("isBlurred ", isBlurred)
       }
    }
    return (

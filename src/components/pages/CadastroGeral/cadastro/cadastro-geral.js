@@ -49,13 +49,8 @@ import {
 } from "./cadastro-fields.js"
 
 import {
-   handleNomeChange,
-   handleSobrenomeChange,
    handleCpfChange,
    handleCpfBlur,
-   handleTipoPessoaChange,
-   handleCategoriaChange,
-   handleSexoChange,
    handleTelefoneChange,
    handleTelefoneBlur,
    handleEmailChange,
@@ -74,7 +69,7 @@ import {
    handleEmailFocus,
 } from "./cadastro-eventos.js"
 
-import { GeralContext } from "/src/utils/react/context.js"
+//import { GeralContext } from "/src/utils/react/context.js"
 import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-provider.js"
 function CadastroGeral() {
    const [nome, setNome] = useState("")
@@ -97,7 +92,8 @@ function CadastroGeral() {
    const [cidade, setCidade] = useState("")
    const [uf, setUf] = useState("")
    const [ufs, setUfs] = useState([])
-   const [isBlurred, setIsBlurred] = useState(false)
+   const [isBlurred, setisBlurred] = useState(false)
+
    const [showAlert_cpf, setShowAlertCPF] = useState(false)
    const [showAlert_cep, setShowAlertCep] = useState(false)
    const [showAlert_email, setShowAlertEmail] = useState(false)
@@ -216,7 +212,7 @@ function CadastroGeral() {
          ufs,
          setUfs,
          isBlurred,
-         setIsBlurred,
+         setisBlurred,
          showAlert_cpf,
          setShowAlertCPF,
          showAlert_cep,
@@ -282,7 +278,7 @@ function CadastroGeral() {
          ufs,
          setUfs,
          isBlurred,
-         setIsBlurred,
+         setisBlurred,
          showAlert_cpf,
          setShowAlertCPF,
          showAlert_cep,
@@ -324,14 +320,20 @@ function CadastroGeral() {
                <ShowAlertCep
                   message="Por favor, insira um número de CEP válido"
                   showAlert_cep={showAlert_cep}
+                  isBlurred={isBlurred}
+                  setShowAlertCep={setShowAlertCep}
                />
                <ShowAlertEmail
                   message="Por favor, insira um endereço de email válido!"
                   showAlert_email={showAlert_email}
+                  isBlurred={isBlurred}
+                  setShowAlertEmail={setShowAlertEmail}
                />
                <ShowAlertTel
                   message="Por favor, insira um número de telefone válido"
                   showAlert_tel={showAlert_tel}
+                  isBlurred={isBlurred}
+                  setShowAlertTel={setShowAlertTel}
                />
                <FormGroup>
                   <Row>
@@ -354,12 +356,7 @@ function CadastroGeral() {
                         <SobrenomeImput />
                      </Col>
                      <Col md={3} style={{ maxWidth: "160px" }} className="mb-3">
-                        <CpfImput
-                           cpf={cpf}
-                           isValidCpf={isValidCpf}
-                           handleCpfChange={handleCpfChange}
-                           handleCpfBlur={handleCpfBlur}
-                        />
+                        <CpfImput cpf={cpf} isValidCpf={isValidCpf} />
                      </Col>
                   </Row>
 
@@ -368,8 +365,6 @@ function CadastroGeral() {
                         <TelefoneImput
                            telefone={telefone}
                            isValidTel={isValidTel}
-                           handleTelefoneChange={handleTelefoneChange}
-                           handleTelefoneBlur={handleTelefoneBlur}
                         />
                      </Col>
                      <Col md={7} className="mb-3">
@@ -377,58 +372,36 @@ function CadastroGeral() {
                            email={email}
                            setEmail={setEmail}
                            isValidEmail={isValidEmail}
-                           handleEmailChange={handleEmailChange}
-                           handleEmailBlur={handleEmailBlur}
-                           handleEmailFocus={handleEmailFocus}
                         />
                      </Col>
                   </Row>
 
                   <Row>
                      <Col md={2} className="mb-3" style={{ display: "flex" }}>
-                        <CepImput
-                           cep={cep}
-                           isValidCep={isValidCep}
-                           handleCepChange={handleCepChange}
-                           handleCepBlur={handleCepBlur}
-                        ></CepImput>
+                        <CepImput cep={cep} isValidCep={isValidCep}></CepImput>
                      </Col>
                   </Row>
 
                   <Row>
                      <Col md={5} className="mb-3">
-                        <EnderecoImput
-                           endereco={endereco}
-                           handleEnderecoChange={handleEnderecoChange}
-                           handleEnderecoKeyUp={handleEnderecoKeyUp}
-                        ></EnderecoImput>
+                        <EnderecoImput endereco={endereco}></EnderecoImput>
                      </Col>
                      <Col md={2} className="mb-3">
-                        <NumeroImput
-                           numero={numero}
-                           handleNumeroChange={handleNumeroChange}
-                        ></NumeroImput>
+                        <NumeroImput numero={numero}></NumeroImput>
                      </Col>
                      <Col md={4} className="mb-3">
                         <ComplementoImput
                            complemento={complemento}
-                           handleComplementoChange={handleComplementoChange}
                         ></ComplementoImput>
                      </Col>
                   </Row>
 
                   <Row>
                      <Col md={5} className="mb-3">
-                        <BairroImput
-                           bairro={bairro}
-                           handleBairroChange={handleBairroChange}
-                        ></BairroImput>
+                        <BairroImput bairro={bairro}></BairroImput>
                      </Col>
                      <Col md={3} className="mb-3">
-                        <MunicipiosSelect
-                           title={title}
-                           handleCidadeChange={handleCidadeChange}
-                        ></MunicipiosSelect>
+                        <MunicipiosSelect title={title}></MunicipiosSelect>
                      </Col>
                      <Col md={4} className="mb-3">
                         <EstadosSelect
@@ -437,8 +410,6 @@ function CadastroGeral() {
                            ufs={ufs}
                            setMunicipios={setMunicipios}
                            setTitle={setTitle}
-                           handleUfChange={handleUfChange}
-                           handleUfKeyUp={handleUfKeyUp}
                         ></EstadosSelect>
                      </Col>
                   </Row>

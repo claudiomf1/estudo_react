@@ -1,11 +1,11 @@
-export const handleMunicipioSelect = (event) => {
-   const municipioSelecionado = event.target.textContent
-   setTitulo(municipioSelecionado)
-}
+// export const handleMunicipioSelect = (event) => {
+//    const municipioSelecionado = event.target.textContent
+//    setTitulo(municipioSelecionado)
+// }
 
-export const handleCidadeChange = (event) => {
-   setCidade(event.target.value)
-}
+// export const handleCidadeChange = (event) => {
+//    setCidade(event.target.value)
+// }
 
 export const handleSubmit = (event) => {
    event.preventDefault()

@@ -19,7 +19,12 @@ export const ShowAlertCPF = ({
    return null
 }
 
-export const ShowAlertCep = ({ showAlert_cep, message }) => {
+export const ShowAlertCep = ({
+   showAlert_cep,
+   message,
+   isBlurred,
+   setShowAlertCep,
+}) => {
    if (showAlert_cep && isBlurred) {
       return (
          <Alert
@@ -34,7 +39,12 @@ export const ShowAlertCep = ({ showAlert_cep, message }) => {
    return null
 }
 
-export const ShowAlertEmail = ({ showAlert_email, message }) => {
+export const ShowAlertEmail = ({
+   showAlert_email,
+   isBlurred,
+   message,
+   setShowAlertEmail,
+}) => {
    if (showAlert_email && isBlurred) {
       return (
          <Alert
@@ -49,7 +59,12 @@ export const ShowAlertEmail = ({ showAlert_email, message }) => {
    return null
 }
 
-export const ShowAlertTel = ({ showAlert_tel, message }) => {
+export const ShowAlertTel = ({
+   showAlert_tel,
+   message,
+   isBlurred,
+   setShowAlertTel,
+}) => {
    if (showAlert_tel && isBlurred) {
       return (
          <Alert
