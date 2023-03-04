@@ -1,7 +1,7 @@
 import React from "react"
 import { Routes, Route } from "react-router-dom"
 import Home from "./components/pages/Home/index.js"
-import CadastroGeral from "./components/pages/CadastroGeral/cadastro-geral.js"
+import CadastroGeral from "./components/pages/CadastroGeral/cadastro/cadastro-geral.js"
 import CadastroGeralPE from "./components/pages/CadastroGeral/cadastro-geral-pesquisa-e-edicao.js"
 
 function AppRoutes() {

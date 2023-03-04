@@ -36,6 +36,7 @@ function App() {
                </Nav>
             </Navbar.Collapse>
          </Navbar>
+
          <AppRoutes />
       </div>
    )
