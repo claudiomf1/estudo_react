@@ -1,6 +1,5 @@
 import React from "react"
-import { useEffect } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { FormGroup, Row, Col, Button } from "react-bootstrap"
 
@@ -38,8 +37,10 @@ import {
 } from "./cadastro-fields.js"
 
 import { handleSubmit } from "./cadastro-eventos.js"
-
+import { getUfNameByValue } from "../../../../utils/address-utils.js"
 import { MyContext } from "/src/components/pages/CadastroGeral/cadastro-geral-context.js"
+import { filterMunicipiosByCidade } from "./cadastro-fields.js"
+import { EventosEstados } from "./cadastro-fields.js"
 function CadastroGeral() {
    const [nome, setNome] = useState("")
    const [sobrenome, setSobrenome] = useState("")
@@ -75,6 +76,8 @@ function CadastroGeral() {
    const [MunicipiosParaOSelectSource, setMunicipiosParaOSelectSource] =
       useState([])
    const [title, setTitle] = useState("Escolha a cidade")
+   const [pegarCep, setpegarCep] = useState(true)
+   const [cidadeSelecionada, setCidadeSelecionada] = useState("")
 
    UsersEfects(
       isValidCep,
@@ -85,19 +88,39 @@ function CadastroGeral() {
       endereco,
       setCep,
       setisValidCep,
+      pegarCep,
+      setpegarCep,
       setTodosMunicipios,
       setUfs,
       setMunicipiosParaOSelectSource,
       Municipios,
-      setTitle
+      setTitle,
+      cidadeSelecionada,
+      (data) => {
+         setCidadeSelecionada(data.localidade)
+         setCidade(data.localidade)
+      }
    )
 
    function setAddress(data) {
+      setpegarCep(false)
       setEndereco(data.logradouro)
       setBairro(data.bairro)
+      setTodosMunicipios(todosMunicipiosBrasil()) // atualiza o estado
+      setUf(getUfNameByValue(data.uf))
       setCidade(data.localidade)
-      setUf(data.uf)
+      setCidadeSelecionada(data.localidade) // adicionado para atualizar a cidadeSelecionada
+
+      const municipiosDaCidade = filterMunicipiosByCidade(
+         todosMunicipios,
+         data.localidade,
+         ufs
+      )
+      // filtra os municípios correspondentes à UF e cidade selecionadas
+      setMunicipios(municipiosDaCidade)
+      setTitle(data.localidade) // adicionado para atualizar o título
    }
+
    const contextValue = React.useMemo(
       () => ({
          nome,
@@ -122,6 +145,8 @@ function CadastroGeral() {
          setOriginalEmail,
          isValidEmail,
          setisValidEmail,
+         pegarCep,
+         setpegarCep,
          cep,
          setCep,
          isValidCep,
@@ -164,6 +189,8 @@ function CadastroGeral() {
          setMunicipiosParaOSelectSource,
          title,
          setTitle,
+         cidadeSelecionada,
+         setCidadeSelecionada,
       }),
       [
          nome,
@@ -188,6 +215,8 @@ function CadastroGeral() {
          setOriginalEmail,
          isValidEmail,
          setisValidEmail,
+         pegarCep,
+         setpegarCep,
          cep,
          setCep,
          isValidCep,
@@ -230,6 +259,8 @@ function CadastroGeral() {
          setMunicipiosParaOSelectSource,
          title,
          setTitle,
+         cidadeSelecionada,
+         setCidadeSelecionada,
       ]
    )
 
@@ -307,7 +338,7 @@ function CadastroGeral() {
 
                   <Row>
                      <Col md={2} className="mb-3" style={{ display: "flex" }}>
-                        <CepImput cep={cep} isValidCep={isValidCep}></CepImput>
+                        <CepImput cep={cep} isValidCep={isValidCep} />
                      </Col>
                   </Row>
 
@@ -330,7 +361,10 @@ function CadastroGeral() {
                         <BairroImput bairro={bairro}></BairroImput>
                      </Col>
                      <Col md={3} className="mb-3">
-                        <MunicipiosSelect title={title}></MunicipiosSelect>
+                        <MunicipiosSelect
+                           title={title}
+                           setCidadeSelecionada={setCidadeSelecionada}
+                        ></MunicipiosSelect>
                      </Col>
                      <Col md={4} className="mb-3">
                         <EstadosSelect
@@ -372,11 +406,15 @@ function UsersEfects(
    endereco,
    setCep,
    setisValidCep,
+   pegarCep,
+   setpegarCep,
    setTodosMunicipios,
    setUfs,
    setMunicipiosParaOSelectSource,
    Municipios,
-   setTitle
+   setTitle,
+   cidadeSelecionada,
+   setCidadeSelecionada
 ) {
    useEffect(() => {
       async function fetchData() {
@@ -410,7 +448,7 @@ function UsersEfects(
          }
       }
 
-      if (endereco !== "" && cidade !== "" && uf !== "") {
+      if (endereco !== "" && cidade !== "" && uf !== "" && pegarCep) {
          fetchCep()
       }
    }, [endereco, cidade, uf])
@@ -431,6 +469,22 @@ function UsersEfects(
          return nomesMunicipios
       })
 
-      setTitle("Escolha a cidade ")
-   }, [Municipios])
+      setTitle(pegarCep === false ? cidadeSelecionada : "Escolha a cidade")
+   }, [Municipios, cidadeSelecionada])
+}
+
+async function verificaCidadePorCep(cep, cidadeSelecionada) {
+   try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      const data = await response.json()
+
+      // verifica se o nome da cidade obtido na requisição é o mesmo que foi selecionado pelo usuário
+      if (data.localidade.toLowerCase() !== cidadeSelecionada.toLowerCase()) {
+         throw new Error(
+            `CEP inválido para a cidade selecionada (${cidadeSelecionada})`
+         )
+      }
+   } catch (error) {
+      console.error(error)
+   }
 }

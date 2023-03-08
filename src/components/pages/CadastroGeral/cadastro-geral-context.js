@@ -21,6 +21,8 @@ export const MyContext = createContext({
    setCpf: () => {},
    isValidCpf: true,
    setisValidCpf: () => {},
+   setpegarCep: () => {},
+   pegarCep: () => {},
    tipoPessoa: "",
    setTipoPessoa: () => {},
    categoria: "",
@@ -55,4 +57,6 @@ export const MyContext = createContext({
    setMunicipios: () => {},
    ufs: [],
    setUfs: () => {},
+   cidadeSelecionada: "",
+   setCidadeSelecionada: () => {},
 })

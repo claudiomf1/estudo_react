@@ -15,7 +15,7 @@
 //    }
 
 //    try {
-//       console.log("cepppp =>", cep)
+//
 //       let cepSemHifen = cep.replace("-", "")
 //       let url = "https://viacep.com.br/ws/" + cepSemHifen + "/json/"
 //       let response = UrlFetchApp.fetch(url, { headers: headers })
@@ -34,7 +34,7 @@
 
 // export async function getAddressData(cep, fetchAddressFuncName) {
 //    try {
-//       console.log("cep =>", cep)
+//
 //       console.log("fetchAddressFuncName =>", fetchAddressFuncName)
 //       const fetchAddressFunc = new Function("cep", fetchAddressFuncName)
 //       const address = fetchAddressFunc(cep)

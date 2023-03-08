@@ -1,4 +1,4 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import { FormSelect, FormControl } from "react-bootstrap"
 import SelectSourch from "../../../SelectSearch/SelectSearch.js"
 
@@ -336,8 +336,6 @@ function EventosCep(
          setisValidCep(false)
 
          setShowAlertCep(true)
-         console.log("showAlert_cep ", showAlert_cep)
-         console.log("isBlurred ", isBlurred)
       }
    }
    return { handleCepChange, handleCepBlur }
@@ -406,97 +404,137 @@ export function BairroImput() {
    )
 }
 
-export function MunicipiosSelect() {
+export function MunicipiosSelect({ setCidadeSelecionada }) {
    const {
       municipios,
       title,
       setTitle,
       MunicipiosParaOSelectSource,
       setMunicipiosParaOSelectSource,
+      cidadeSelecionada,
+      setCidade,
+      pegarCep,
    } = useContext(MyContext)
 
+   const titulo = cidadeSelecionada ? cidadeSelecionada : title // utilizando cidadeSelecionada como título
+   console.log("title", title)
+   console.log("cidadeSelecionada", cidadeSelecionada)
+   let isLoading = true
+   if (!pegarCep) isLoading = false
+
    return (
-      <SelectSourch
-         titulo={title}
-         initialData={MunicipiosParaOSelectSource}
-         maxHeight={235}
-         classDropdownToggle="classDropdownToggle"
-      />
+      <>
+         <SelectSourch
+            titulo={titulo}
+            initialData={MunicipiosParaOSelectSource}
+            maxHeight={235}
+            classDropdownToggle="classDropdownToggle"
+            isLoading={isLoading}
+         />
+      </>
    )
 }
 
 export function EstadosSelect() {
-   const { ufs, uf, setUf, setMunicipios, setTitle, todosMunicipios } =
-      useContext(MyContext)
+   const {
+      ufs,
+      uf,
+      setUf,
+      municipios,
+      setMunicipios,
+      setTitle,
+      todosMunicipios,
+      cidade,
+      setpegarCep,
+      setCidadeSelecionada,
+   } = useContext(MyContext)
 
    const handleUfChange = EventosEstados(todosMunicipios)
    return (
-      <select
-         id="uf"
-         className="form-select"
-         value={uf}
-         style={{
-            width: "74%",
-         }}
-         onChange={(event) =>
-            handleUfChange(
-               event,
-               "Escolha a cidade",
-               setUf,
-               ufs,
-               setMunicipios,
-               setTitle
-            )
-         }
-      >
-         {ufs.map((uf) => (
-            <option key={uf.value} value={uf.label}>
-               {uf.label}
-            </option>
-         ))}
-      </select>
+      <>
+         <select
+            id="uf"
+            className="form-select"
+            value={uf}
+            style={{
+               width: "74%",
+            }}
+            onChange={(event) =>
+               handleUfChange(
+                  event,
+                  //   titulo_padrao_selectsourch,
+                  setUf,
+                  ufs,
+                  setMunicipios,
+                  setTitle,
+                  cidade,
+                  setpegarCep,
+                  setCidadeSelecionada
+               )
+            }
+         >
+            {ufs.map((uf) => (
+               <option key={uf.value} value={uf.label}>
+                  {uf.label}
+               </option>
+            ))}
+         </select>
+         {municipios && municipios.length > 0 && (
+            <MunicipiosSelect title={cidade} municipios={municipios} />
+         )}
+      </>
    )
 }
-function EventosEstados(todosMunicipios) {
+export function EventosEstados(todosMunicipios) {
    return (
       event,
-      titulo_padrao_selectsourch,
+      //  titulo_padrao_selectsourch,
       setUf,
       ufs,
       setMunicipios,
-      setTitle
+      setTitle,
+      cidade,
+      setpegarCep,
+      setCidadeSelecionada
    ) => {
+      setpegarCep(true)
+      setCidadeSelecionada("")
       const newUf = event.target.value
       setUf(newUf)
-      function getCodigoMunicipioByCidade(cidadeSelecionada, ufs) {
-         const ufsSelecionadas = ufs.filter(
-            (uf) => uf.label === cidadeSelecionada
-         )
 
-         if (ufsSelecionadas.length > 0) {
-            return ufsSelecionadas[0].codigo
-         } else {
-            return null
-         }
-      }
-      function filterMunicipiosByCidade(cidadeSelecionada, ufs) {
-         const codigoMunicipio = getCodigoMunicipioByCidade(
-            cidadeSelecionada,
-            ufs
-         )
-
-         if (!codigoMunicipio) {
-            return []
-         }
-         return todosMunicipios.filter(
-            (municipio) =>
-               municipio.codigo_uf.toString() === codigoMunicipio.toString()
-         )
-      }
-
-      const municipiosDaCidade = filterMunicipiosByCidade(newUf, ufs)
+      const municipiosDaCidade = filterMunicipiosByCidade(
+         todosMunicipios,
+         newUf,
+         ufs
+      )
 
       setMunicipios(municipiosDaCidade)
-      setTitle(titulo_padrao_selectsourch)
+
+      // setTitle(titulo_padrao_selectsourch)
    }
+}
+//--------------------funções auxiliares-------------------------------------------------------------------------------
+function getCodigoMunicipioByCidade(cidadeSelecionada, ufs) {
+   const ufsSelecionadas = ufs.filter((uf) => uf.label === cidadeSelecionada)
+
+   if (ufsSelecionadas.length > 0) {
+      return ufsSelecionadas[0].codigo
+   } else {
+      return null
+   }
+}
+export function filterMunicipiosByCidade(
+   todosMunicipios,
+   cidadeSelecionada,
+   ufs
+) {
+   const codigoMunicipio = getCodigoMunicipioByCidade(cidadeSelecionada, ufs)
+
+   if (!codigoMunicipio) {
+      return []
+   }
+   return todosMunicipios.filter(
+      (municipio) =>
+         municipio.codigo_uf.toString() === codigoMunicipio.toString()
+   )
 }

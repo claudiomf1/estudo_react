@@ -11,23 +11,23 @@ function SelectSourch(props) {
    const variant = props.variant || "success" // default value
    const classDropdownToggle = props.classDropdownToggle || ""
 
-   const [isLoading, setIsLoading] = useState(true)
+   const [isLoading, setisLoading] = useState(true)
 
    const [dados, setDados] = useState(props.initialData)
-   const [titulo, setTitulo] = useState(props.titulo) // adicionar estado interno para o título
+   const [titulo, settitulo] = useState(props.titulo) // adicionar estado interno para o título
    useEffect(() => {
       setDados(props.initialData)
    }, [props.initialData])
 
    useEffect(() => {
       if (dados.length > 0) {
-         setIsLoading(false)
+         setisLoading(false)
       }
    }, [dados])
 
    useEffect(() => {
-      setTitulo(props.titulo)
-   }, [dados])
+      settitulo(props.titulo)
+   }, [dados, props.titulo])
 
    function btnInput(e) {
       setDados(ResultSearch(e.target.value, [0], dados))
@@ -47,7 +47,8 @@ function SelectSourch(props) {
       {
          botaoselect.textContent = e.target.textContent
          botaoselect.setAttribute("valor", e.target.innerText)
-         setTitulo(e.target.textContent) // atualizar o título quando uma opção for selecionada
+         settitulo(e.target.textContent) // atualizar o título quando uma opção for selecionada
+
          //         props.onChange(e.target.textContent)
       }
    }
@@ -113,7 +114,8 @@ function SelectSourch(props) {
 
       return resultsArray
    }
-   if (!isLoading) {
+
+   if (!isLoading || !props.isLoading) {
       return (
          <Dropdown>
             <Dropdown.Toggle
@@ -124,7 +126,7 @@ function SelectSourch(props) {
                id="dropdownMenuButton1"
                //onClick={() => clickselect()}
             >
-               {props.titulo}
+               {titulo}
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
@@ -146,6 +148,8 @@ function SelectSourch(props) {
                                  return (
                                     <tr key={index}>
                                        <td className="se-dado">{option} </td>
+
+                                       {option}
                                     </tr>
                                  )
                               })}

@@ -64,6 +64,16 @@ export function getAllUfs() {
    ]
 }
 
+export function getUfNameByValue(value) {
+   const allUfs = getAllUfs()
+   const matchingUfs = allUfs.filter((uf) => uf.value === value)
+   if (matchingUfs.length > 0) {
+      return matchingUfs[0].label
+   } else {
+      return null
+   }
+}
+
 // export function getMunicipiosByUF(uf) {
 //    // filtra a lista de municípios para retornar apenas os municípios do estado selecionado
 //    const municipiosDoEstado = municipios.filter(

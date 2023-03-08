@@ -20,7 +20,7 @@ function Home() {
    if (error) {
       return <div>Error!</div>
    }
-   console.log("response =>", response)
+
    const [{ data }] = response
 
    return (
