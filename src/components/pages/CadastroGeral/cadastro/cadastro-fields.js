@@ -417,8 +417,7 @@ export function MunicipiosSelect({ setCidadeSelecionada }) {
    } = useContext(MyContext)
 
    const titulo = cidadeSelecionada ? cidadeSelecionada : title // utilizando cidadeSelecionada como título
-   console.log("title", title)
-   console.log("cidadeSelecionada", cidadeSelecionada)
+
    let isLoading = true
    if (!pegarCep) isLoading = false
 

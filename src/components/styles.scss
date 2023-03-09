@@ -31,3 +31,7 @@
    outline: 0;
    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
 }
+.dropdown-item:active {
+   //background-color: unset; // essa opçao tambem é valida faz o mesmo efeito que a de baixo
+   background-color: transparent;
+}

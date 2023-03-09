@@ -5,16 +5,19 @@ import Table from "react-bootstrap/Table"
 import { ListGroup } from "react-bootstrap"
 import React, { useRef, useLayoutEffect } from "react"
 import { useEffect, useState } from "react"
-
+import { clean } from "diacritic"
+import diacritics from "diacritics"
 function SelectSourch(props) {
    const maxHeight = props.maxHeight || "120px" // default value
    const variant = props.variant || "success" // default value
    const classDropdownToggle = props.classDropdownToggle || ""
+   const classDropdownItem = props["dropdown-item"] || ""
 
    const [isLoading, setisLoading] = useState(true)
 
    const [dados, setDados] = useState(props.initialData)
    const [titulo, settitulo] = useState(props.titulo) // adicionar estado interno para o título
+
    useEffect(() => {
       setDados(props.initialData)
    }, [props.initialData])
@@ -87,37 +90,80 @@ function SelectSourch(props) {
     * @dados_p o array de dados  (completo)
     */
    function ResultSearch(inputText, indexsSearch, dados_p) {
-      let searchInput = inputText.toLowerCase().trim() // pegando tudo que esta digitado no input
+      const searchInput = clean(inputText).toLowerCase().trim() // pegando tudo que esta digitado no input
+      let normalizedInput = diacritics
+         .remove(searchInput)
+         .replace(/[^a-z0-9\s]/g, "")
 
-      let searchWords = searchInput.split(/\s+/) // cria um array das palavras digitadas no input, sendo o separador um ou mais espaços, so nao entendi ainda o motivo disso
+      let searchWords = normalizedInput.split(/\s+/) // cria um array das palavras digitadas no input, sendo o separador um ou mais espaços, so nao entendi ainda o motivo disso
 
       let searchColumnar = [...indexsSearch] // define em quais indices do array trazido do banco de dados sera feita a pesquisa
 
       // and or
-      let resultsArray =
-         searchInput === ""
-            ? props.initialData
-            : dados_p.filter(function (r) {
-                 // dados_p é o array com todos os dados trazidos do banco
+      // let resultsArray =
+      //    searchInput === ""
+      //       ? props.initialData
+      //       : dados_p.filter(function (r) {
+      //            // dados_p é o array com todos os dados trazidos do banco
 
-                 return searchWords.every(function (wordCd) {
-                    return searchColumnar.some(function (colIndexCd) {
-                       return (
-                          r[colIndexCd]
-                             .toString()
-                             .toLowerCase()
-                             .indexOf(wordCd) !== -1
-                       )
-                    })
-                 })
-              })
+      //            return searchWords.every(function (wordCd) {
+      //               return searchColumnar.some(function (colIndexCd) {
+      //                  // Removendo acentos da string para comparação
+      //                  const colValueCleaned = clean(
+      //                     r[colIndexCd].toString()
+      //                  ).toLowerCase()
+      //                  return colValueCleaned.indexOf(wordCd) !== -1
+      //               })
+      //            })
+      //         })
+
+      const dadosCopy = [...props.initialData] // cria uma nova cópia do array de dados // cria uma cópia do array de dados
+      console.log("dadosCopy", dadosCopy)
+      console.log("props.initialData", props.initialData)
+      let resultsArray = dadosCopy
+      // Realiza a busca apenas no resultado anterior, se o novo texto contém o anterior
+      //  console.log("searchInput =>", searchInput)
+      // console.log("resultsArray =>", resultsArray)
+      if (
+         resultsArray &&
+         resultsArray.length > 0 &&
+         resultsArray.some((item) => {
+            console.log("item =>", item)
+            return item[0]
+               .toLowerCase()
+               .includes(searchInput.trim().toLowerCase())
+         })
+      ) {
+         resultsArray = resultsArray.filter(function (r) {
+            return searchWords.every(function (wordCd) {
+               return searchColumnar.some(function (colIndexCd) {
+                  const colValueCleaned = clean(
+                     r[colIndexCd].toString()
+                  ).toLowerCase()
+                  return colValueCleaned.indexOf(wordCd) !== -1
+               })
+            })
+         })
+      } else {
+         // Realiza a busca em todo o array de dados
+         resultsArray = dadosCopy.filter(function (r) {
+            return searchWords.every(function (wordCd) {
+               return searchColumnar.some(function (colIndexCd) {
+                  const colValueCleaned = clean(
+                     r[colIndexCd].toString()
+                  ).toLowerCase()
+                  return colValueCleaned.indexOf(wordCd) !== -1
+               })
+            })
+         })
+      }
 
       return resultsArray
    }
-
+   const isAtivo = true
    if (!isLoading || !props.isLoading) {
       return (
-         <Dropdown>
+         <Dropdown className={`dropdown-item ${isAtivo ? ":active" : ""}`}>
             <Dropdown.Toggle
                valor="Selecione"
                variant={null}
@@ -128,7 +174,6 @@ function SelectSourch(props) {
             >
                {titulo}
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
                <InputGroup className="mb-3">
                   <Form.Control
@@ -148,8 +193,6 @@ function SelectSourch(props) {
                                  return (
                                     <tr key={index}>
                                        <td className="se-dado">{option} </td>
-
-                                       {option}
                                     </tr>
                                  )
                               })}
